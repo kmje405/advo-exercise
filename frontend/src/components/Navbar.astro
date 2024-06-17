@@ -1,0 +1,28 @@
+---
+interface Link {
+  name: string;
+  href: string;
+}
+
+const links: Link[] = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+  { name: 'FAQ', href: '/faq' }
+];
+---
+
+<nav class="bg-white border-b border-gray-200">
+  <div class="container mx-auto flex justify-between items-center py-4 px-6">
+    <div class="flex items-center">
+      <a href="/">
+        <img src="/path-to-your-logo.png" alt="Logo" class="h-10">
+      </a>
+    </div>
+    <div class="hidden md:flex space-x-6">
+      {links.map(link => (
+        <a href={link.href} class="text-gray-700 hover:text-blue-500 transition duration-300">{link.name}</a>
+      ))}
+    </div>
+  </div>
+</nav>
