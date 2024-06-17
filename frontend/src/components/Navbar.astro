@@ -1,4 +1,9 @@
 ---
+
+import { Image } from "astro:assets";
+import logo from "../../src/images/advo_logo.png"
+
+
 interface Link {
   name: string;
   href: string;
@@ -13,10 +18,10 @@ const links: Link[] = [
 ---
 
 <nav class="bg-white border-b border-gray-200">
-  <div class="container mx-auto flex justify-between items-center py-4 px-6">
+  <div class="container mx-auto flex justify-between items-center px-6">
     <div class="flex items-center">
       <a href="/">
-        <img src="/path-to-your-logo.png" alt="Logo" class="h-10">
+        <Image src={logo} alt="Logo" class="h-[300px] w-auto">
       </a>
     </div>
     <div class="hidden md:flex space-x-6">
