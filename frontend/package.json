@@ -1,5 +1,7 @@
 {
-  "name": "astro",
+  "name": "MyAdvo",
+  "description": "MyAdvo",
+  "author": "K.M. Jones-Eastland, KaDee Bramlett",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
