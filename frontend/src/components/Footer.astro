@@ -1,5 +1,6 @@
 ---
-
+const socialPlatform = ["Instagram", "LinkedIn", "TikTok"];
+const userName = ["myadvoorg", "company/advocacy-resources/", ""];
 ---
 
 <footer>
@@ -11,9 +12,9 @@
             <p>Contact</p>
         </div>
         <div class="column text-center">
-            <a>Instagram</a>
-            <a>LinkedIn</a>
-            <a>TikTok</a>
+            <a href={`https://www.${socialPlatform[0]}.com/${userName[0]}`}>{socialPlatform[0]}</a>
+            <a href={`https://www.${socialPlatform[1]}.com/${userName[1]}`}>{socialPlatform[1]}</a>
+            <a href="">{socialPlatform[2]}</a>
         </div>
         <div class="column text-right">All Right Reserved &copy2024</div>
     </div>
