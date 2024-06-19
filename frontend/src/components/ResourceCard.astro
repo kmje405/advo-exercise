@@ -1,0 +1,16 @@
+---
+import type { doc } from "firebase/firestore";
+import { fetchData } from "../utils/fetchData";
+
+
+const data = await fetchData("resources");
+---
+
+    <div class="container mx-auto">
+      <h1 class="text-2xl font-bold">Data from Firebase</h1>
+      <ul>
+        {data.map(doc => (
+          <li class="py-2">{doc.resourceName}</li>
+        ))}
+      </ul>
+    </div>
