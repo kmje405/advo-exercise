@@ -1,0 +1,15 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /resources/{document=**} {
+      // Allow read access to anyone
+      allow read: if true;
+      // Allow write access only to authenticated users
+      allow write: if request.auth != null;
+    }
+    
+    // Default deny rule for other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -3,20 +3,19 @@ import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import MainSearchForm from "../components/MainSearchForm.astro";
 import ResourceCard from "../components/ResourceCard.astro";
-import Footer from "../components/Footer.astro"
+import Footer from "../components/Footer.astro";
 
 const title = "My Advo";
 const description = "Find resources for queer youth in your area";
 ---
 
 <Layout title="My Advo">
+	<Navbar />
 	<main class="bg-gray-300 min-h-screen">
-		<Navbar />
 		<h1 class="text-6xl mt-8 pl-4 font-bold md:text-center">{title}</h1>
 		<p class="text-lg pl-4 md:text-center">{description}</p>
 		<MainSearchForm />
 		<ResourceCard />
-
 	</main>
 	<Footer />
 </Layout>

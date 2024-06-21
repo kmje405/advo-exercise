@@ -2,6 +2,7 @@
 
 import { Image } from "astro:assets";
 import logo from "../../src/images/advo_logo.png"
+import AdvoButton from "./AdvoButton.astro";
 
 
 interface Link {
@@ -17,11 +18,11 @@ const links: Link[] = [
 ];
 ---
 
-<nav class="bg-white border-b border-gray-200">
+<nav class="bg-white border-gray-200">
   <div class="container mx-auto flex justify-between items-center px-6">
     <div class="flex items-center">
       <a href="/">
-        <Image src={logo} alt="Logo" class="h-[300px] w-auto">
+        <Image src={logo} alt="Logo" class="h-[100px] w-auto">
       </a>
     </div>
     <div class="hidden md:flex space-x-6">
@@ -29,5 +30,6 @@ const links: Link[] = [
         <a href={link.href} class="text-gray-700 hover:text-blue-500 transition duration-300">{link.name}</a>
       ))}
     </div>
+    <AdvoButton label="Admin Login" size="md" type="button" href="/signin" class="bg-blue-500 text-white"></AdvoButton>
   </div>
 </nav>
