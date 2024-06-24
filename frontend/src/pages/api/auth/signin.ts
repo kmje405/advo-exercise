@@ -7,33 +7,26 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 
   /* Get token from request headers */
   const idToken = request.headers.get("Authorization")?.split("Bearer ")[1];
-  console.log(idToken)
+  console.log("Received ID Token:", idToken); // Add this log to debug
+
   if (!idToken) {
-    return new Response(
-      "No token found",
-      { status: 401 }
-    );
+    return new Response("No token found", { status: 401 });
   }
 
   /* Verify id token */
   try {
-    await auth.verifyIdToken(idToken);
+    const decodedToken = await auth.verifyIdToken(idToken);
+    console.log("Decoded Token:", decodedToken); // Add this log to debug
+
+    const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
+    const sessionCookie = await auth.createSessionCookie(idToken, { expiresIn });
+
+    /* Set session cookie */
+    cookies.set("__session", sessionCookie, { path: "/", httpOnly: true });
+
+    return redirect("/dashboard");
   } catch (error) {
-    return new Response(
-      "Invalid token",
-      { status: 401 }
-    );
+    console.error("Error verifying token:", error); // Add this log to debug
+    return new Response("Invalid token", { status: 401 });
   }
-
-  /* Create and set session cookie */
-  const fiveDays = 60 * 60 * 24 * 5 * 1000;
-  const sessionCookie = await auth.createSessionCookie(idToken, {
-    expiresIn: fiveDays,
-  });
-
-  cookies.set("__session", sessionCookie, {
-    path: "/",
-  });
-
-  return redirect("/dashboard");
 };
