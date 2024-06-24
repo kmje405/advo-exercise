@@ -1,39 +1,30 @@
 ---
-const socialPlatform = ["Instagram", "LinkedIn", "TikTok"];
-const userName = ["myadvoorg", "company/advocacy-resources/", ""];
----
+const socialLinks = {
+  Instagram: "myadvoorg",
+  LinkedIn: "company/advocacy-resources/",
+  TikTok: ""
+};
 
-<footer>
-    <div class="row flex-wrap">
-        <div class="column text-left">
+// get the current year
+const currentYear = new Date().getFullYear();
+---
+<footer class="p-12">
+    <div class="flex flex-col lg:flex-row justify-between px-12">
+        <div class="flex flex-col lg:flex-row text-left mb-4 lg:mb-0 space-y-2 lg:space-y-0 lg:space-x-4">
             <p>Privacy Policy</p>
             <p>Terms of Use</p>
             <p>About Us</p>
             <p>Contact</p>
         </div>
-        <div class="column text-center">
-            <a href={`https://www.${socialPlatform[0]}.com/${userName[0]}`}>{socialPlatform[0]}</a>
-            <a href={`https://www.${socialPlatform[1]}.com/${userName[1]}`}>{socialPlatform[1]}</a>
-            <a href="">{socialPlatform[2]}</a>
+        <div class="flex flex-col lg:flex-row text-left mb-4 lg:mb-0 space-y-2 lg:space-y-0 lg:space-x-4">
+            {Object.entries(socialLinks).map(([platform, username]) => (
+              <a href={`https://www.${platform.toLowerCase()}.com/${username}`}>
+                {platform}
+              </a>
+            ))}
         </div>
-        <div class="column text-right">All Right Reserved &copy2024</div>
+        <div class="text-left">
+            All Rights Reserved &copy; {currentYear}
+        </div>
     </div>
 </footer>
-
-<style>
-    footer {
-        padding: 3rem;
-    }
-    p,
-    a {
-        display: inline;
-        margin-right: 2rem;
-    }
-    .column {
-        float: left;
-        width: 33.33%;
-    }
-    .row {
-        padding: 0rem 4rem;
-    }
-</style>
