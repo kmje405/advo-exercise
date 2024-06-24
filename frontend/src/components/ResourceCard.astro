@@ -6,7 +6,7 @@ import { fetchData } from "../utils/fetchData";
 const data = await fetchData("resources");
 ---
 
-    <div class="container mx-auto border border-black max-w-fit m-4 p-4">
+    <div class="container rounded-2xl bg-gray-300 mx-auto w-1/4 m-4 p-4">
       <ul>
         {data.map(doc => (
           <li class="py-2">{doc.resourceName}</li>
