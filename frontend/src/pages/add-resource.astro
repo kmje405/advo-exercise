@@ -1,0 +1,123 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import { requireAuth } from "../middleware/auth";
+export const prerender = false;
+export const onRequest = requireAuth;
+---
+
+<Layout title="Add Resource">
+  <Navbar />
+  <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-6">Add New Resource</h1>
+    <form id="resource-form" class="space-y-4">
+      <div>
+        <label
+          for="resourceName"
+          class="block text-sm font-medium text-gray-700">Resource Name</label
+        >
+        <input
+          type="text"
+          name="resourceName"
+          id="resourceName"
+          class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+      <div>
+        <label
+          for="contactEmail"
+          class="block text-sm font-medium text-gray-700">Contact Email</label
+        >
+        <input
+          type="email"
+          name="contactEmail"
+          id="contactEmail"
+          class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700"
+          >Phone</label
+        >
+        <input
+          type="text"
+          name="phone"
+          id="phone"
+          class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+      <div>
+        <label for="url" class="block text-sm font-medium text-gray-700"
+          >URL</label
+        >
+        <input
+          type="text"
+          name="url"
+          id="url"
+          class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+      <div>
+        <label for="tags" class="block text-sm font-medium text-gray-700"
+          >Tags</label
+        >
+        <input
+          type="text"
+          name="tags"
+          id="tags"
+          class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Comma separated e.g., mentalHealth, 20-30"
+        />
+      </div>
+      <button
+        type="submit"
+        class="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
+      >
+        Add Resource
+      </button>
+    </form>
+  </div>
+</Layout>
+
+<script type="module">
+   // Client-side check for session cookie
+   if (document.cookie.includes("__session")) {
+    window.location.href = "/signin";
+  }
+
+  const form = document.getElementById("resource-form");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const resourceData = {
+      resourceName: formData.get("resourceName"),
+      contactEmail: formData.get("contactEmail"),
+      phone: formData.get("phone"),
+      url: formData.get("url"),
+      tags: formData
+        .get("tags")
+        .split(",")
+        .map((tag) => tag.trim()),
+    };
+
+    try {
+      const response = await fetch("/api/resources", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(resourceData),
+      });
+
+      if (response.ok) {
+        console.log("Resource added successfully");
+        // Redirect or show success message
+      } else {
+        const errorData = await response.json();
+        console.error("Error adding resource:", errorData.error);
+      }
+    } catch (error) {
+      console.error("Error adding resource:", error);
+    }
+  });
+</script>
