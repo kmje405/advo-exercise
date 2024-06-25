@@ -6,16 +6,16 @@ export const requireAuth: MiddlewareHandler = async ({ cookies, redirect }): Pro
   const sessionCookie = cookies.get("__session")?.value;
 
   if (!sessionCookie) {
-    console.log("No session cookie found, redirecting to /signin"); // Debug log
+    console.log("No session cookie found, redirecting to /signin");
     return redirect("/signin");
   }
 
   try {
     await getAuth(app).verifySessionCookie(sessionCookie, true);
-    console.log("Session cookie verified"); // Debug log
+    console.log("Session cookie verified");
     return;
   } catch (error) {
-    console.log("Error verifying session cookie, redirecting to /signin"); // Debug log
+    console.error("Error verifying session cookie:", error); // Enhanced error log
     return redirect("/signin");
   }
 };
