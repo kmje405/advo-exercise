@@ -1,14 +1,18 @@
-// server.ts
-import { initializeApp, cert, getApps } from "firebase-admin/app";
-import { getAuth } from "firebase-admin/auth";
-import { getFirestore } from "firebase-admin/firestore";
 import type { ServiceAccount } from "firebase-admin";
+import { initializeApp, cert, getApps } from "firebase-admin/app";
+
+// Helper function to sanitize and format the private key
+const formatPrivateKey = (key: string): string => {
+  return key.replace(/\\n/g, '\n');
+};
+
+const activeApps = getApps();
 
 const serviceAccount: ServiceAccount = {
   type: "service_account",
   project_id: import.meta.env.FIREBASE_PROJECT_ID,
   private_key_id: import.meta.env.FIREBASE_PRIVATE_KEY_ID,
-  private_key: import.meta.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  private_key: formatPrivateKey(import.meta.env.FIREBASE_PRIVATE_KEY as string),
   client_email: import.meta.env.FIREBASE_CLIENT_EMAIL,
   client_id: import.meta.env.FIREBASE_CLIENT_ID,
   auth_uri: import.meta.env.FIREBASE_AUTH_URI,
@@ -17,17 +21,23 @@ const serviceAccount: ServiceAccount = {
   client_x509_cert_url: import.meta.env.FIREBASE_CLIENT_CERT_URL,
 };
 
-// Initialize the admin app if not already initialized
-if (!getApps().length) {
-  initializeApp({
+const initApp = () => {
+  if (import.meta.env.PROD) {
+    console.info('PROD env detected. Using default service account.');
+    // Use default config in firebase functions. Should be already injected in the server by Firebase.
+    return initializeApp();
+  }
+  console.info('Loading service account from env.');
+  return initializeApp({
     credential: cert(serviceAccount),
   });
+};
+
+const app = activeApps.length === 0 ? initApp() : activeApps[0];
+export { app };
+
+if (activeApps.length === 0) {
+  console.info('Firebase Admin SDK initialized.');
+} else {
+  console.info('Using existing Firebase Admin SDK app.');
 }
-
-// Get the initialized app
-const app = getApps()[0];
-
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-export { auth, db, app };
