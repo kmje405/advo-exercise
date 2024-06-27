@@ -1,36 +1,65 @@
 ---
-import AdvoButton from "./AdvoButton.astro"
+import AdvoButton from "./AdvoButton.astro";
 ---
 
 <form class="flex flex-col w-full items-center mt-4" action="/submit" method="post">
-    <div class="dropdown-container flex flex-col w-11/12 space-y-4 md:flex-row md:space-y-0 md:space-x-4 md:w-8/12">
-        <select class="p-4 w-full md:w-1/5" id="dropdown1" name="options1">
-            <option value="option1">Age Range</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-        </select>
-        <select class="p-4 w-full md:w-1/5" id="dropdown2" name="options2">
-            <option value="option1">Zip Code</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-        </select>
-        <select class="p-4 w-full md:w-1/5" id="dropdown3" name="options3">
-            <option value="option1">Social Health</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-        </select>
-        <select class="p-4 w-full md:w-1/5" id="dropdown4" name="options4">
-            <option value="option1">Mental Health</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-        </select>
-        <select class="p-4 w-full md:w-1/5" id="dropdown5" name="options5">
-            <option value="option1">Physical Health</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-        </select>
+  <div class="dropdown-container flex flex-col w-11/12 space-y-4 md:flex-row md:space-y-0 md:space-x-4 md:w-8/12">
+    <div class="w-full md:w-1/5">
+      <label for="dropdown1" class="block text-sm font-medium text-gray-700">Age Range</label>
+      <select class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="dropdown1" name="ageRange">
+        <option value="">Select Age Range</option>
+        <option value="0-12">0-12 (Child)</option>
+        <option value="13-17">13-17 (Teen)</option>
+        <option value="18-24">18-24 (Young Adult)</option>
+        <option value="25-34">25-34</option>
+        <option value="35-44">35-44</option>
+        <option value="45-54">45-54</option>
+        <option value="55-64">55-64</option>
+        <option value="65+">65+</option>
+      </select>
     </div>
-    <br /><br />
-    <AdvoButton label="GET STARTED" size="lg" type="submit" />
+    <div class="w-full md:w-1/5">
+      <label for="zipcode" class="block text-sm font-medium text-gray-700">Enter Zip Code</label>
+      <input type="text" id="zipcode" name="zipcode" class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter Zip Code" />
+    </div>
+    <div class="w-full md:w-1/5">
+      <label for="dropdown2" class="block text-sm font-medium text-gray-700">Social Well-being</label>
+      <select class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="dropdown2" name="socialWellBeingTag">
+        <option value="">Select Option</option>
+        <option value="friendship-advice">Friendship Advice</option>
+        <option value="relationship-advice">Relationship Advice</option>
+        <option value="bullying-cyberbullying">Bullying and Cyberbullying</option>
+        <option value="cultural-identity-issues">Cultural and Identity Issues</option>
+        <option value="lgbtq-support">LGBTQ+ Support</option>
+        <option value="social-media-literacy">Social Media and Digital Literacy</option>
+        <option value="community-engagement">Community Engagement</option>
+      </select>
+    </div>
+    <div class="w-full md:w-1/5">
+      <label for="dropdown3" class="block text-sm font-medium text-gray-700">Emotional Well-being</label>
+      <select class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="dropdown3" name="emotionalWellBeingTag">
+        <option value="">Select Option</option>
+        <option value="mental-health-support">Mental Health Support</option>
+        <option value="self-esteem-body-image">Self-esteem and Body Image</option>
+        <option value="coping-skills">Coping Skills</option>
+        <option value="grief-loss">Grief and Loss</option>
+        <option value="addiction-substance-abuse">Addiction and Substance Abuse</option>
+        <option value="trauma-abuse">Trauma and Abuse</option>
+      </select>
+    </div>
+    <div class="w-full md:w-1/5">
+      <label for="dropdown4" class="block text-sm font-medium text-gray-700">Physical Well-being</label>
+      <select class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="dropdown4" name="physicalWellBeingTag">
+        <option value="">Select Option</option>
+        <option value="nutrition-eating-disorders">Nutrition and Eating Disorders</option>
+        <option value="fitness-exercise">Fitness and Exercise</option>
+        <option value="sexual-health">Sexual Health</option>
+        <option value="sleep">Sleep</option>
+        <option value="general-health">General Health</option>
+        <option value="chronic-illness-disability">Chronic Illness and Disability Support</option>
+      </select>
+    </div>
+  </div>
+  <br /><br />
+  <AdvoButton label="GET STARTED" size="lg" type="submit" />
 </form>
-

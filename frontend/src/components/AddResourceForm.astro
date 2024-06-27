@@ -1,0 +1,129 @@
+---
+import AdvoButton from "./AdvoButton.astro";
+---
+
+<div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+  <h1 class="text-2xl font-bold mb-6">Add New Resource</h1>
+  <form id="resource-form" class="space-y-4">
+    <div>
+      <label for="resourceName" class="block text-sm font-medium text-gray-700">Resource Name</label>
+      <input type="text" name="resourceName" id="resourceName" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+    </div>
+    <div>
+      <label for="contactEmail" class="block text-sm font-medium text-gray-700">Contact Email</label>
+      <input type="email" name="contactEmail" id="contactEmail" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+    </div>
+    <div>
+      <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+      <input type="text" name="phone" id="phone" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+    </div>
+    <div>
+      <label for="url" class="block text-sm font-medium text-gray-700">URL</label>
+      <input type="text" name="url" id="url" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+    </div>
+    <div>
+      <label for="mainTag" class="block text-sm font-medium text-gray-700">Main Tag</label>
+      <select name="mainTag" id="mainTag" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        <option value="">Select Main Tag</option>
+        <option value="social-well-being">Social Well-being</option>
+        <option value="emotional-well-being">Emotional Well-being</option>
+        <option value="physical-well-being">Physical Well-being</option>
+      </select>
+    </div>
+    <div>
+      <label for="socialWellBeingTag" class="block text-sm font-medium text-gray-700">Social Well-being Sub-Tag</label>
+      <select name="socialWellBeingTag" id="socialWellBeingTag" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        <option value="">Select Sub-Tag</option>
+        <option value="friendship-advice">Friendship Advice</option>
+        <option value="relationship-advice">Relationship Advice</option>
+        <option value="bullying-cyberbullying">Bullying and Cyberbullying</option>
+        <option value="cultural-identity-issues">Cultural and Identity Issues</option>
+        <option value="lgbtq-support">LGBTQ+ Support</option>
+        <option value="social-media-literacy">Social Media and Digital Literacy</option>
+        <option value="community-engagement">Community Engagement</option>
+      </select>
+    </div>
+    <div>
+      <label for="emotionalWellBeingTag" class="block text-sm font-medium text-gray-700">Emotional Well-being Sub-Tag</label>
+      <select name="emotionalWellBeingTag" id="emotionalWellBeingTag" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        <option value="">Select Sub-Tag</option>
+        <option value="mental-health-support">Mental Health Support</option>
+        <option value="self-esteem-body-image">Self-esteem and Body Image</option>
+        <option value="coping-skills">Coping Skills</option>
+        <option value="grief-loss">Grief and Loss</option>
+        <option value="addiction-substance-abuse">Addiction and Substance Abuse</option>
+        <option value="trauma-abuse">Trauma and Abuse</option>
+      </select>
+    </div>
+    <div>
+      <label for="physicalWellBeingTag" class="block text-sm font-medium text-gray-700">Physical Well-being Sub-Tag</label>
+      <select name="physicalWellBeingTag" id="physicalWellBeingTag" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        <option value="">Select Sub-Tag</option>
+        <option value="nutrition-eating-disorders">Nutrition and Eating Disorders</option>
+        <option value="fitness-exercise">Fitness and Exercise</option>
+        <option value="sexual-health">Sexual Health</option>
+        <option value="sleep">Sleep</option>
+        <option value="general-health">General Health</option>
+        <option value="chronic-illness-disability">Chronic Illness and Disability Support</option>
+      </select>
+    </div>
+    <div>
+      <label for="ageRanges" class="block text-sm font-medium text-gray-700">Age Ranges</label>
+      <select name="ageRanges" id="ageRanges" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" multiple>
+        <option value="0-12">0-12 (Child)</option>
+        <option value="13-17">13-17 (Teen)</option>
+        <option value="18-24">18-24 (Young Adult)</option>
+        <option value="25-34">25-34</option>
+        <option value="35-44">35-44</option>
+        <option value="45-54">45-54</option>
+        <option value="55-64">55-64</option>
+        <option value="65+">65+</option>
+      </select>
+    </div>
+    <AdvoButton 
+      size="md"
+      label="Add Resource"
+      type="submit"
+      class="w-full bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
+    />
+  </form>
+</div>
+
+<script type="module">
+  const form = document.getElementById("resource-form");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const resourceData = {
+      resourceName: formData.get("resourceName"),
+      contactEmail: formData.get("contactEmail"),
+      phone: formData.get("phone"),
+      url: formData.get("url"),
+      mainTag: formData.get("mainTag"),
+      socialWellBeingTag: formData.get("socialWellBeingTag"),
+      emotionalWellBeingTag: formData.get("emotionalWellBeingTag"),
+      physicalWellBeingTag: formData.get("physicalWellBeingTag"),
+      ageRanges: Array.from(formData.getAll("ageRanges")),
+    };
+
+    try {
+      const response = await fetch("/api/resources", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(resourceData),
+      });
+
+      if (response.ok) {
+        console.log("Resource added successfully");
+        // Redirect or show success message
+      } else {
+        const errorData = await response.json();
+        console.error("Error adding resource:", errorData.error);
+      }
+    } catch (error) {
+      console.error("Error adding resource:", error);
+    }
+  });
+</script>
