@@ -1,9 +1,9 @@
 ---
-
+import { app } from "../firebase/server";
+import { getAuth } from "firebase-admin/auth";
 import { Image } from "astro:assets";
-import logo from "../../src/images/advo_logo.png"
+import logo from "../../src/images/advo_logo.png";
 import AdvoButton from "./AdvoButton.astro";
-
 
 interface Link {
   name: string;
@@ -16,6 +16,19 @@ const links: Link[] = [
   { name: 'Contact', href: '/contact' },
   { name: 'FAQ', href: '/faq' }
 ];
+
+const auth = getAuth(app);
+
+let user = null;
+if (Astro.cookies.has("__session")) {
+  const sessionCookie = Astro.cookies.get("__session")!.value;
+  try {
+    const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+    user = await auth.getUser(decodedCookie.uid);
+  } catch (error) {
+    console.error("Error verifying session cookie:", error);
+  }
+}
 ---
 
 <nav class="bg-white border-gray-200">
@@ -30,6 +43,12 @@ const links: Link[] = [
         <a href={link.href} class="text-gray-700 hover:text-blue-500 transition duration-300">{link.name}</a>
       ))}
     </div>
-    <AdvoButton label="Admin Login" size="md" type="button" href="/signin" class="bg-blue-500 text-white"></AdvoButton>
+    {user ? (
+      <form action="/api/auth/signout" method="get">
+        <AdvoButton label="Sign out" size="md" type="submit" class="bg-blue-500 text-white"></AdvoButton>
+      </form>
+    ) : (
+      <AdvoButton label="Admin Login" size="md" type="button" href="/signin" class="bg-blue-500 text-white"></AdvoButton>
+    )}
   </div>
 </nav>
